@@ -31,12 +31,14 @@ jobs:
       run: |
         echo "Iniciando construcción de la imagen"
         docker build -t felipeaertec/docker-graphql:0.0.2 .
+        docker build -t felipeaertec/docker-graphql:latest .
         echo "Fin de la construcción de la imagen"
         
     - name: Push docker image
       run: |
         echo "Subiendo la imagen al repositorio"
         docker push felipeaertec/docker-graphql:0.0.2
+        docker push felipeaertec/docker-graphql:latest
         echo "Imagen subida con éxito"
         
     
