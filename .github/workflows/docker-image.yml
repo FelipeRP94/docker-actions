@@ -36,7 +36,7 @@ jobs:
     - name: Push docker image
       run: |
         echo "Subiendo la imagen al repositorio"
-        docker push felipeaertec/docker-graphql:0.0.2 .
+        docker push felipeaertec/docker-graphql:0.0.2
         echo "Imagen subida con éxito"
         
     
