@@ -29,28 +29,28 @@ jobs:
     - name: Docker login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        NEW_VERSION: ${{ steps.version.outputs.version }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}        
       run: |
         echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "New version: $NEW_VERSION!!!!!!"
         
-    
+    - name: Build docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        echo "Iniciando construcción de la imagen"
+        docker build -t felipeaertec/docker-graphql:$NEW_VERSION .
+        docker build -t felipeaertec/docker-graphql:latest .
+        echo "Fin de la construcción de la imagen"
         
-#    - name: Build docker image
- #     run: |
-  #      echo "Iniciando construcción de la imagen"
-   #     docker build -t felipeaertec/docker-graphql:0.0.2 .
-    #    docker build -t felipeaertec/docker-graphql:latest .
-     #   echo "Fin de la construcción de la imagen"
-        
-#   - name: Push docker image
-#     run: |
-#       echo "Subiendo la imagen al repositorio"
-#       docker push felipeaertec/docker-graphql:0.0.2
-#       docker push felipeaertec/docker-graphql:latest
-#       echo "Imagen subida con éxito"
+    - name: Push docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+       echo "Subiendo la imagen al repositorio"
+       docker push felipeaertec/docker-graphql:$NEW_VERSION
+       docker push felipeaertec/docker-graphql:latest
+       echo "Imagen subida con éxito"
         
     
     
